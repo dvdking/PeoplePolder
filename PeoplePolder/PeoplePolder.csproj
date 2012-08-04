@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{45730C04-3696-4B90-A80A-9685F73D1945}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PeoplePolder</RootNamespace>
+    <AssemblyName>PeoplePolder</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;WINDOWS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Buildings\Building.cs" />
+    <Compile Include="Buildings\BuildingManager.cs" />
+    <Compile Include="Buildings\Castle.cs" />
+    <Compile Include="Buildings\Sawmill.cs" />
+    <Compile Include="Creatures\Behaviors\CarpenterBehaviour.cs" />
+    <Compile Include="Creatures\Behaviors\WoodcutterBehavior.cs" />
+    <Compile Include="Creatures\Creature.cs" />
+    <Compile Include="Creatures\Fabrics\CreatureFabric.cs" />
+    <Compile Include="Creatures\CreatureManager.cs" />
+    <Compile Include="Creatures\Behaviors\IBehavior.cs" />
+    <Compile Include="Creatures\PathFinding\AStar.cs" />
+    <Compile Include="Creatures\PathFinding\BinaryHeap.cs" />
+    <Compile Include="Creatures\PathFinding\Path.cs" />
+    <Compile Include="Creatures\PathFinding\WayPoint.cs" />
+    <Compile Include="Game1.cs" />
+    <Compile Include="GameField.cs" />
+    <Compile Include="GameManager.cs" />
+    <Compile Include="GameStates\GameState.cs" />
+    <Compile Include="GameStates\StateManager.cs" />
+    <Compile Include="GameStates\StrategyState.cs" />
+    <Compile Include="Helpers\AnimSprite.cs" />
+    <Compile Include="Helpers\Camera2D.cs" />
+    <Compile Include="Helpers\KeyboardHelper.cs" />
+    <Compile Include="Helpers\MouseHelper.cs" />
+    <Compile Include="Helpers\RandomTool.cs" />
+    <Compile Include="Helpers\TextureManager.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resourses.cs" />
+    <Compile Include="ResoursesStorage.cs" />
+    <Compile Include="Settings.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Downloads\QuickFont_1.0.1\QuickFont\QuickFont\bin\Debug\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="QuickFont">
+      <HintPath>..\..\..\Downloads\QuickFont_1.0.1\QuickFont\QuickFont\bin\Debug\QuickFont.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="Tao.Sdl" />
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Buildings\Castle.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Buildings\Sawmill.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Field\Forest.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Field\Grass.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\HumanMoveDown.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Downloads\mono-MonoGame-2.1.0.0-634-g794358b\mono-MonoGame-794358b\MonoGame.Framework\MonoGame.Framework.Windows.csproj">
+      <Project>{7DE47032-A904-4C29-BD22-2D235E8D91BA}</Project>
+      <Name>MonoGame.Framework.Windows</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

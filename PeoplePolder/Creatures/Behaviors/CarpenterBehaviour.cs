@@ -15,14 +15,20 @@ namespace PeoplePolder.Creatures.Behaviors
         public BuildingManager BuildingManager { get; set; }
 
         private Castle _targetCastle;
+        private Sawmill _targetSawmill;
         private bool _backFromCastle;
-        private bool _waiting = false;
+        private bool _waitingForFood = false;
+        private bool _waitingForWorkingPlace = false;
 
         public void Update(float dt)
         {
-            if (_waiting)
+            if (_waitingForFood)
             {
                 TryTakeWood();
+            }
+            else if(_waitingForWorkingPlace)
+            {
+                TryAddWorker();
             }
             else if ((Creature.ResoursesStorage.Overload(Resourses.Board) && Creature.CreatureState == CreatureState.Working)
                      || Creature.ResoursesStorage.IsAbscent(Resourses.Wood) && Creature.CreatureState != CreatureState.Moving)
@@ -36,7 +42,8 @@ namespace PeoplePolder.Creatures.Behaviors
             }
             else if (Creature.CreatureState == CreatureState.Idle)
             {
-                Creature.MoveTo(BuildingManager.GetNearest<Sawmill>(Creature.Cell).Cell);
+                _targetSawmill = (Sawmill) BuildingManager.GetNearest<Sawmill>(Creature.Cell);
+                Creature.MoveTo(_targetSawmill.Cell);
                 Creature.PathFinished += OnPathFinishedInSawmill;
             }
             else if (Creature.ResoursesStorage.IsAbscent(Resourses.Wood))
@@ -48,7 +55,7 @@ namespace PeoplePolder.Creatures.Behaviors
         private void OnPathFinishedInSawmill()
         {
             Creature.PathFinished -= OnPathFinishedInSawmill;
-            Creature.CreatureState = CreatureState.Working;
+            TryAddWorker();
         }
 
         private void OnPathFinishedInCastle()
@@ -60,6 +67,11 @@ namespace PeoplePolder.Creatures.Behaviors
             TryTakeWood();
         }
 
+        private void TryAddWorker()
+        {
+            _waitingForWorkingPlace = _targetSawmill.TryAddWorker(Creature);
+        }
+
         private void TryTakeWood()
         {
             int res = 0;
@@ -68,10 +80,10 @@ namespace PeoplePolder.Creatures.Behaviors
                                                   _targetCastle.ResoursesStorage.DiscardResourse(Resourses.Wood, 50));
             if (res == 0)
             {
-                _waiting = true;
+                _waitingForFood = true;
             }
             else
-                _waiting = false;
+                _waitingForFood = false;
         }
     }
 }

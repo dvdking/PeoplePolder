@@ -37,15 +37,15 @@ namespace PeoplePolder.GameStates
             _buildingManager.Add(sawmill);
 
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 6; i++)
             {
                 Creature creature = CreatureFabric.CreateHuman(_creatureManager, _gameField, _buildingManager, CreatureRelation.Friendly);
-                creature.Position = new Vector2(RandomTool.RandInt(0,2000), RandomTool.RandInt(0, 1000));
+                creature.Position = new Vector2(RandomTool.RandInt(0,200), RandomTool.RandInt(0, 100));
                 creature.SetBehaviour(new CarpenterBehaviour());
                 _creatureManager.Add(creature);
             }
 
-            for (int i = 0; i < 300; i++)
+            for (int i = 0; i < 40; i++)
             {
                 Creature creature = CreatureFabric.CreateHuman(_creatureManager, _gameField, _buildingManager, CreatureRelation.Friendly);
                 creature.Position = new Vector2(RandomTool.RandInt(0, 2000), RandomTool.RandInt(0, 2000));

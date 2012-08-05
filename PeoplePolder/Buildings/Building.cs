@@ -14,6 +14,8 @@ namespace PeoplePolder.Buildings
         public Point Cell { get; set; }
 
         protected List<Creature> Workers;
+        private readonly Queue<Creature> _addEuque;
+        private readonly Queue<Creature> _deleteEuque;
         protected int WorkerPlaces { get; set; }
     
 
@@ -36,18 +38,50 @@ namespace PeoplePolder.Buildings
         {
             Cell = cell;
             Workers = new List<Creature>();
+            _addEuque = new Queue<Creature>();
+            _deleteEuque = new Queue<Creature>();
         }
 
-        public void AddWorker(Creature creature)
+        public bool TryAddWorker(Creature creature)
         {
-            if(Workers.Count + 1 > WorkerPlaces)
-                throw new Exception("This one is too much for this building");
+            if (Workers.Count + _addEuque.Count() + 1 > WorkerPlaces)
+                return false;
 
-            Workers.Add(creature);
+            _addEuque.Enqueue(creature); 
+
+            return true;
         }
 
-        public abstract void Update(float dt);
-        public abstract bool DoWork(Creature creature, float dt);
+        public void Remove(Creature creature)
+        {
+            _deleteEuque.Enqueue(creature);
+        }
+
+
+        public bool IsOnWork(Creature creature)
+        {
+            return Workers.Any(p => p == creature);
+        }
+
+        public virtual void Update(float dt)
+        {
+            foreach (var creature in Workers)
+            {
+                DoWork(creature, dt);
+            }
+            while (_addEuque.Any())
+            {
+                Creature creature = _addEuque.Dequeue();
+                creature.CreatureState = CreatureState.Working;
+                Workers.Add(creature);
+            }
+            while (_deleteEuque.Any())
+            {
+                Workers.Remove(_deleteEuque.Dequeue());
+            }
+        }
+
+        protected abstract bool DoWork(Creature creature, float dt);
 
         public virtual void Draw(float dt)
         {

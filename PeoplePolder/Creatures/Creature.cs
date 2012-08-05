@@ -179,8 +179,6 @@ namespace PeoplePolder.Creatures
                     break;
                 case CreatureState.Working:
                     Building building = BuildingManager.GetInCell(Cell);
-                    if(!building.DoWork(this, dt))
-                        CreatureState = CreatureState.Idle;
                     break;
             }
 

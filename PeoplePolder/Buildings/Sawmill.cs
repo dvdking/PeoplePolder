@@ -13,17 +13,23 @@ namespace PeoplePolder.Buildings
         public Sawmill(Point cell) : base(cell)
         {
             Sprite = SpriteType.Sawmill;
-            NeedTime = 25;
+            NeedTime = 155;
+            WorkerPlaces = 3;
         }
-
         public override void Update(float dt)
         {
+            base.Update(dt);
         }
 
-        public override bool DoWork(Creature creature, float dt)
+        protected override bool DoWork(Creature creature, float dt)
         {
             if (creature.ResoursesStorage.CheckResourse(Resourses.Wood) <= 0)
+            {
+                creature.CreatureState = CreatureState.Idle;
+                Remove(creature);
                 return false;
+
+            }
 
             Elapsed += dt;
 

@@ -22,9 +22,10 @@ namespace PeoplePolder.Buildings
 
         public override void Update(float dt)
         {
+          //  base.Update(dt);
         }
 
-        public override bool DoWork(Creature creature, float dt)
+        protected override bool DoWork(Creature creature, float dt)
         {
             return false;
         }

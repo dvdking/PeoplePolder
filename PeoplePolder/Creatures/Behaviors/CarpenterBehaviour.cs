@@ -13,16 +13,16 @@ namespace PeoplePolder.Creatures.Behaviors
         public CreatureManager CreatureManager { get; set; }
         public GameField GameField { get; set; }
         public BuildingManager BuildingManager { get; set; }
+        public StrategyManager StrategyManager { get; set; }
 
         private Castle _targetCastle;
         private Sawmill _targetSawmill;
-        private bool _backFromCastle;
-        private bool _waitingForFood = false;
+        private bool _waitingForWood = false;
         private bool _waitingForWorkingPlace = false;
 
         public void Update(float dt)
         {
-            if (_waitingForFood)
+            if (_waitingForWood)
             {
                 TryTakeWood();
             }
@@ -78,12 +78,7 @@ namespace PeoplePolder.Creatures.Behaviors
             Creature.ResoursesStorage.AddResourse(Resourses.Wood,
                                                   res =
                                                   _targetCastle.ResoursesStorage.DiscardResourse(Resourses.Wood, 50));
-            if (res == 0)
-            {
-                _waitingForFood = true;
-            }
-            else
-                _waitingForFood = false;
+            _waitingForWood = res == 0;
         }
     }
 }

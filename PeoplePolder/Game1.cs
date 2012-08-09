@@ -67,11 +67,13 @@ namespace PeoplePolder
 
         protected override void Update(GameTime gameTime)
         {
+            if (KeyboardHelper.WasPressed(Keys.Escape))
+                Exit();
+
             dt = (float)gameTime.ElapsedGameTime.TotalMilliseconds;
             MouseHelper.Update();
             KeyboardHelper.Update(dt);
-            if(KeyboardHelper.WasPressed(Keys.Escape))
-                Exit();
+
             stateManager.Update(dt);
 
             base.Update(gameTime);

@@ -12,6 +12,8 @@ namespace PeoplePolder.Helpers
 {
     public enum SpriteType
     {
+        Nothing,
+
         HumanMoveLeft,
         HumanMoveRight,
 
@@ -19,13 +21,17 @@ namespace PeoplePolder.Helpers
         Sawmill,
 
         Grass,
-        Forest
+        Forest,
+
+        SawmillMenuElement,
+        ArrowButtonLeft,
+        ArrowButtonRight,
     }
 
     public static class TextureManager
     {
-        private static Dictionary<SpriteType, Texture2D> _textures = new Dictionary<SpriteType, Texture2D>();
-        static private Dictionary<SpriteType, AnimSprite> _animations = new Dictionary<SpriteType, AnimSprite>();
+        static private readonly Dictionary<SpriteType, Texture2D> Textures = new Dictionary<SpriteType, Texture2D>();
+        static private readonly Dictionary<SpriteType, AnimSprite> Animations = new Dictionary<SpriteType, AnimSprite>();
 
         private static QFont font;
 
@@ -38,11 +44,11 @@ namespace PeoplePolder.Helpers
 
         static public AnimSprite GetAnimSprite(SpriteType at)
         {
-            return _animations[at].Clone();
+            return Animations[at].Clone();
         }
         static public Texture2D GetTexture(SpriteType at)
         {
-            return _textures[at];
+            return Textures[at];
         }
 
 
@@ -57,11 +63,15 @@ namespace PeoplePolder.Helpers
 
         static public void DrawTexture(SpriteType texture, Rectangle rectangle, Color color)
         {
-            SpriteBatch.Draw(_textures[texture], rectangle, color);
+            if (texture == SpriteType.Nothing) return;
+
+            SpriteBatch.Draw(Textures[texture], rectangle, color);
         }
         static public void DrawTexture(SpriteType texture, Vector2 vector, Color color)
         {
-            SpriteBatch.Draw(_textures[texture], vector, color);
+            if (texture == SpriteType.Nothing) return;
+
+            SpriteBatch.Draw(Textures[texture], vector, color);
         }
 
         static public void DrawString(string str, Vector2 position)
@@ -71,13 +81,18 @@ namespace PeoplePolder.Helpers
 
         static public void LoadTextures(ContentManager content)
         {
-            _textures.Add(SpriteType.HumanMoveRight, content.Load<Texture2D>("HumanMoveDown"));
-            _animations.Add(SpriteType.HumanMoveRight,new AnimSprite(SpriteType.HumanMoveRight, 2,16,16));
+            Textures.Add(SpriteType.HumanMoveRight, content.Load<Texture2D>("HumanMoveDown"));
+            Animations.Add(SpriteType.HumanMoveRight,new AnimSprite(SpriteType.HumanMoveRight, 2,16,16));
 
-            _textures.Add(SpriteType.Grass, content.Load<Texture2D>("Field//Grass"));
-            _textures.Add(SpriteType.Forest, content.Load<Texture2D>("Field//Forest"));
-            _textures.Add(SpriteType.Castle, content.Load<Texture2D>("Buildings//Castle"));
-            _textures.Add(SpriteType.Sawmill, content.Load<Texture2D>("Buildings//Sawmill"));
+            Textures.Add(SpriteType.Grass, content.Load<Texture2D>("Field//Grass"));
+            Textures.Add(SpriteType.Forest, content.Load<Texture2D>("Field//Forest"));
+
+            Textures.Add(SpriteType.Castle, content.Load<Texture2D>("Buildings//Castle"));
+            Textures.Add(SpriteType.Sawmill, content.Load<Texture2D>("Buildings//Sawmill"));
+
+            Textures.Add(SpriteType.SawmillMenuElement, content.Load<Texture2D>("GUI//Sawmill"));
+            Textures.Add(SpriteType.ArrowButtonLeft, content.Load<Texture2D>("GUI//ArrowButtonLeft"));
+            Textures.Add(SpriteType.ArrowButtonRight, content.Load<Texture2D>("GUI//ArrowButtonRight"));
 
             font = new QFont(new Font("Times new roman", 12));
         }

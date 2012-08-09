@@ -22,7 +22,7 @@ namespace PeoplePolder.Creatures.PathFinding
             }
         }
 
-        public GameField gameField;
+        public StrategyManager StrategyManager;
         public Creature Creature;
 
         public byte[,] FogMap;
@@ -39,9 +39,9 @@ namespace PeoplePolder.Creatures.PathFinding
 
         public AStar() { }
 
-        public AStar(GameField gameField, Creature creature)
+        public AStar(StrategyManager strategyManager, Creature creature)
         {
-            this.gameField = gameField;
+            this.StrategyManager = strategyManager;
             this.Creature = creature;
         }
 
@@ -68,7 +68,7 @@ namespace PeoplePolder.Creatures.PathFinding
 
         public List<Vector2> FoundCellWay(Point startCell, Point endCell)
         {
-            pointMap = new byte[gameField.Width, gameField.Height];
+            pointMap = new byte[StrategyManager.GameField.Width, StrategyManager.GameField.Height];
             OpenList = new BinaryHeap();
 
             WayPoint startPoint = new WayPoint(startCell, null, true);
@@ -125,7 +125,7 @@ namespace PeoplePolder.Creatures.PathFinding
             //}
             //if(FogMap!= null)
             //    if (FogMap[x, y] == 1) return false;
-            return gameField.IsPassable(x, y);
+            return StrategyManager.GameField.IsPassable(x, y);
         }
 
         private bool CheckPassability(Point cell)
@@ -139,7 +139,7 @@ namespace PeoplePolder.Creatures.PathFinding
 
             if (!CheckPassability(pos.X, pos.Y))
                 return;
-            if(!gameField.InRange(pos.X, pos.Y))
+            if(!StrategyManager.GameField.InRange(pos.X, pos.Y))
                 return;
             if (pointMap[pos.X, pos.Y] != 1)
             {

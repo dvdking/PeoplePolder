@@ -49,9 +49,8 @@ namespace PeoplePolder.Creatures
 
         private AStar _aStar;
 
-        protected CreatureManager CreatureManager { get; set; }
-        protected GameField GameField { get; set; }
-        protected BuildingManager BuildingManager { get; set; }
+        private StrategyManager _strategyManager;
+
         private float _x,_y;
 
 
@@ -103,18 +102,14 @@ namespace PeoplePolder.Creatures
             }
         }
 
-        public Creature(CreatureManager creatureManager, GameField gameField, BuildingManager buildingManager)
+        public Creature(StrategyManager strategyManager)
         {
-            BuildingManager = buildingManager;
-            CreatureManager = creatureManager;
-            GameField = gameField;
-
             ResoursesStorage = new ResoursesStorage(50, 0);
 
             CreatureState = CreatureState.Idle;
-            _aStar = new AStar(gameField, this);
+            _aStar = new AStar(strategyManager, this);
 
-
+            _strategyManager = strategyManager;
 
             AnimationState = CreatureAnimationState.MoveRight;
         }
@@ -124,9 +119,10 @@ namespace PeoplePolder.Creatures
             Behavior = behavior;
 
             behavior.Creature = this;
-            behavior.GameField = this.GameField;
-            behavior.CreatureManager = this.CreatureManager;
-            behavior.BuildingManager =this.BuildingManager;
+            behavior.GameField = this._strategyManager.GameField;
+            behavior.CreatureManager = this._strategyManager.CreatureManager;
+            behavior.BuildingManager =this._strategyManager.BuildingManager;
+            behavior.StrategyManager = this._strategyManager;
         }
 
         public void MoveTo(Point cell)
@@ -168,7 +164,7 @@ namespace PeoplePolder.Creatures
                     if (_elapsed >= 15)
                     {
                         _elapsed = 0;
-                        res = GameField.GetResourses(Cell, 1);
+                        res = _strategyManager.GameField.GetResourses(Cell, 1);
 
                         if (res == 0) 
                             CreatureState = CreatureState.Idle;
@@ -178,7 +174,7 @@ namespace PeoplePolder.Creatures
                     }
                     break;
                 case CreatureState.Working:
-                    Building building = BuildingManager.GetInCell(Cell);
+                    Building building = _strategyManager.BuildingManager.GetInCell(Cell);
                     break;
             }
 

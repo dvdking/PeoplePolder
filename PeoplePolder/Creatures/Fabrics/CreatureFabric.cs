@@ -9,12 +9,10 @@ namespace PeoplePolder.Creatures.Fabrics
 {
     public static class CreatureFabric
     {
-        public static Creature CreateHuman(CreatureManager creatureManager,
-                                           GameField gameField,
-                                           BuildingManager buildingManager,
+        public static Creature CreateHuman(StrategyManager strategyManager,
                                            CreatureRelation relation)
         {
-            Creature human = new Creature(creatureManager, gameField,buildingManager)
+            Creature human = new Creature(strategyManager)
                                  {
                                      MoveRightSprite = TextureManager.GetAnimSprite(SpriteType.HumanMoveRight),
 

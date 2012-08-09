@@ -9,7 +9,7 @@ namespace PeoplePolder.Creatures.Behaviors
         CreatureManager CreatureManager { get; set; }
         GameField GameField { get; set; }
         BuildingManager BuildingManager { get; set; }
-
+        StrategyManager StrategyManager { get; set; }
         void Update(float dt);
     }
 }

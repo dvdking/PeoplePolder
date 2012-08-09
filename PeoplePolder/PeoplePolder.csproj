@@ -51,10 +51,16 @@
     <Compile Include="Creatures\PathFinding\WayPoint.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameField.cs" />
-    <Compile Include="GameManager.cs" />
+    <Compile Include="GUI\Elements\ConstructionMenu.cs" />
+    <Compile Include="StrategyManager.cs" />
     <Compile Include="GameStates\GameState.cs" />
     <Compile Include="GameStates\StateManager.cs" />
     <Compile Include="GameStates\StrategyState.cs" />
+    <Compile Include="GUI\Elements\Button.cs" />
+    <Compile Include="GUI\Elements\Container.cs" />
+    <Compile Include="GUI\Elements\UIObject.cs" />
+    <Compile Include="GUI\Elements\Window.cs" />
+    <Compile Include="GUI\GUIManager.cs" />
     <Compile Include="Helpers\AnimSprite.cs" />
     <Compile Include="Helpers\Camera2D.cs" />
     <Compile Include="Helpers\KeyboardHelper.cs" />
@@ -93,6 +99,15 @@
     <Content Include="Content\Field\Grass.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\GUI\ArrowButtonLeft.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\GUI\ArrowButtonRight.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\GUI\Sawmill.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\HumanMoveDown.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -104,6 +119,7 @@
       <Name>MonoGame.Framework.Windows</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

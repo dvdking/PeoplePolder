@@ -15,6 +15,8 @@ namespace PeoplePolder.Creatures.Behaviors
         public GameField GameField { get; set; }
         public BuildingManager BuildingManager { get; set; }
 
+        public StrategyManager StrategyManager { get; set; }
+
         private Castle _targetCastle; 
 
         public void Update(float dt)
